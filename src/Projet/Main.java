@@ -26,35 +26,24 @@ public class Main {
 			Fenetre fen = new Fenetre(AF);
 			fen.setVisible(true);
 			
-			System.out.println(Methode.Lettre(AF));
+			//System.out.println(Methode.Lettre(AF));
 			
 			//TEST
-			/*ArrayList<String> Etats = Methode. DifferentEtatsFin(AF);
-			System.out.println(Etats);
-			ArrayList<String> Etat = Methode. DifferentEtatsInit(AF);
-			System.out.println(Etat);
-			ArrayList<String> E = Methode. DifferentEtats(Etat,Etats);
-			System.out.println(E);*/
-			ArrayList<String> Auto = new ArrayList<String>();
-			Auto = Methode.getInit(AF);
-			System.out.println(Auto);
-			ArrayList<String> Auto4 = new ArrayList<String>();
-			Auto4 = Methode.getLigneTableau("0",AF);
-			System.out.println(Auto4);
-			
+			System.out.println(Methode.getFin(AF));
 			//Suite du projet
 			boolean verif = Methode.est_un_Automate_asynchrone(AF);
 			if(verif)
 			{
 				ArrayList<Transition> AFDC = Methode.determinisation_et_completion_Automate_asynchrone(AF);
-				ArrayList<Transition> det = Methode.toDeterministe(AF);
 				System.out.println(AFDC);
-				System.out.println(det);
+				Fenetre fent = new Fenetre(AFDC);
+				fent.setVisible(true);
 			}
 			else
 			{
 				System.out.println("Automate synchrone ");
 			}
+
 		}
 		
 	catch (Exception e) 

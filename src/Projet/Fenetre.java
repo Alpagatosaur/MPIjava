@@ -19,9 +19,9 @@ public class Fenetre extends JFrame
 		this.setTitle("Table");
 		this.setSize(800,500);
 			
-		ArrayList<String> EtatInitial = Methode.DifferentEtatsInit(Transition);
-		ArrayList<String> EtatFinal = Methode.DifferentEtatsFin(Transition);
-		ArrayList<String> ListEtat =  Methode.DifferentEtats(EtatInitial,EtatFinal);
+		ArrayList<String> EtatInitial = Methode.ListeEtatsTrInit(Transition);
+		ArrayList<String> EtatFinal = Methode.ListeEtatsTrFin(Transition);
+		ArrayList<String> ListEtat =  Methode.ListeDiffEtats(EtatInitial,EtatFinal);
 
 		//Creation Tableau
 		String colonne[] = new String[Methode.Lettre(Transition).size()+2]; //+2 pour laisser du vide avant d ecrire les transitions possibles
