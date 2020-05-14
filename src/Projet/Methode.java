@@ -34,10 +34,12 @@ public class Methode {
 		ArrayList<String> Fleche = new ArrayList<String>();
 		for(Transition e : Transition)
 		{
+			//Initialisation
 			if(Fleche.size() == 0)
 			{
 				Fleche.add(e.getTransition());
 			}
+			//On remplit la liste
 			else
 			{
 				boolean doublon = false;
@@ -219,7 +221,7 @@ public class Methode {
 	}
 
 	//DETERMINISATION ET COMPLETION
-	public static ArrayList<Integer> PositionsMotVide (ArrayList<Transition> AF)
+	public static ArrayList<Integer> PositionsMotVide (ArrayList<Transition> AF) //Recherche la position des mots vides dans l automate
 	{
 		int etoile=0;
 		ArrayList<Integer> Positions = new ArrayList<Integer>();
@@ -301,7 +303,7 @@ public class Methode {
 		}
 	}
 	
-	public static ArrayList<Transition> toDeterministe (ArrayList<Transition> AFDC, ArrayList<Transition> AF ) throws IOException // Transforme un automate en automate deterministe et complet
+	public static ArrayList<Transition> toDeterministeAndC (ArrayList<Transition> AFDC, ArrayList<Transition> AF ) throws IOException // Transforme un automate en automate deterministe et complet
 
 	{
 		ArrayList<Transition> AutoDet = new ArrayList<Transition>();
@@ -473,6 +475,27 @@ public class Methode {
 			}
 		}
 		
+		//Supprimer P si Non besoin
+		boolean checkEtatP = false;
+		for(Transition checkP : AutoDet)
+		{
+			if(checkP.getEtatFINAL().equals("P") && !checkP.getEtatINIT().equals("P"))
+			{
+				checkEtatP = true;
+			}
+		}
+		if(!checkEtatP) // Si P nest pas utile/ (pas la)
+		{
+			for(int poubelle = 0 ; poubelle<AutoDet.size(); poubelle++)
+			{
+				if(AutoDet.get(poubelle).getEtatINIT().equals("P"))
+				{
+					AutoDet.remove(poubelle);
+					poubelle= poubelle - 2; //AutoDet.size() devient plus petit et on doit prendre l indice -1 car lorsquon reprend la boucle for +1
+				}
+			}
+		}
+		
 		
 		return AutoDet;
 	}
@@ -543,7 +566,7 @@ public class Methode {
 				AFDC.remove(n);
 			}
 		}
-		AFDC = toDeterministe(AFDC,AF);
+		AFDC = toDeterministeAndC(AFDC,AF);
 		return AFDC;
 	}
 
