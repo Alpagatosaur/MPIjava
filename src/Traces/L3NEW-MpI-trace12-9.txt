@@ -1,0 +1,67 @@
+Quel Automate voulez-vous etudier?
+9
+Traitement ...
+
+Determinisation et completion
+Lecture de la ligne 0:   Recherche de la transition mot vide ** ---> false
+Lecture de la ligne 1:   Recherche de la transition mot vide ** ---> false
+Lecture de la ligne 2:   Recherche de la transition mot vide ** ---> false
+Lecture de la ligne 3:   Recherche de la transition mot vide ** ---> false
+Lecture de la ligne 4:   Recherche de la transition mot vide ** ---> false
+Lecture de la ligne 5:   Recherche de la transition mot vide ** ---> false
+Lecture de la ligne 6:   Recherche de la transition mot vide ** ---> false
+Lecture de la ligne 7:   Recherche de la transition mot vide ** ---> false
+------------------------------------------------------------------------------------
+ Resume de la procedure :
+Ce n'est pas un Automate asynchrone car l Automate ne contient pas de transitions * 
+  
+Automate synchrone 
+  
+l'automate n'est pas déterministe car on ne peut pas aller vers deux états différents en lisant une même lettre. 
+  
+
+Minimisation
+Minimisation de AFDC
+ Teta0 : [1/0, 2/3/4/5/P]
+ Teta1 : [1/0, 2/3/4/P, 5]
+ Teta2 : [1/0, 2/3/P, 4, 5]
+ Teta3 : [1/0, 2/P, 3, 4, 5]
+ Teta4 : [1/0, 2, P, 3, 4, 5]
+
+Reconnaissance de mots
+On utilise AFDC
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+a
+Non
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+ababa
+Oui
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+Stop
+
+Langage complementaire
+On utilise l automate AFDC 
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+a
+Oui
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+ababa
+Non
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+Stop
+
+Standardisation
+On utilise l automate AFDC 
+  Automate non standard
+  Modification en cours ...
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+a
+Oui
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+ab
+Oui
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+ababa
+Non
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+Stop
