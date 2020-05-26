@@ -229,7 +229,70 @@ public class Methode {
 		return Ligne;
 	}
 
-	
+	public static ArrayList<Transition> infoEScompleter (ArrayList<Transition> A) throws IOException
+	{
+		ArrayList<Transition> write = new ArrayList<Transition>();
+		for(Transition auto : A)
+		{
+			if(auto.getEntreeOUsortie().contains("*") && !auto.getTransition().contains("*"))
+			{
+				if(getE(A).contains(auto.getEtatINIT()))
+				{
+					write.add(new Transition("E" , auto.getEtatINIT(), auto.getTransition() , auto.getEtatFINAL()));
+				}
+				else if(getS(A).contains(auto.getEtatINIT()))
+				{
+					write.add(new Transition("S" , auto.getEtatINIT(), auto.getTransition() , auto.getEtatFINAL()));
+				}
+				else if(getES(A).contains(auto.getEtatINIT()))
+				{
+					write.add(new Transition("ES" , auto.getEtatINIT(), auto.getTransition() , auto.getEtatFINAL()));
+				}
+				else
+				{
+					write.add(auto);
+				}
+			}
+			else if(auto.getTransition().contains("*"))
+			{
+				if(auto.getEntreeOUsortie().contains("*"))
+				{
+					if(getE(A).contains(auto.getEtatFINAL()))
+					{
+						write.add(new Transition("E" , auto.getEtatINIT(), auto.getTransition() , auto.getEtatFINAL()));
+					}
+					else if(getS(A).contains(auto.getEtatFINAL()))
+					{
+						write.add(new Transition("S" , auto.getEtatINIT(), auto.getTransition() , auto.getEtatFINAL()));
+					}
+					else if(getES(A).contains(auto.getEtatFINAL()))
+					{
+						write.add(new Transition("ES" , auto.getEtatINIT(), auto.getTransition() , auto.getEtatFINAL()));
+					}
+					else
+					{
+						write.add(auto);
+					}
+				}
+				else
+				{
+					if(getES(A).contains(auto.getEtatFINAL()))
+					{
+						write.add(new Transition("ES" , auto.getEtatINIT(), auto.getTransition() , auto.getEtatFINAL()));
+					}
+					else
+					{
+						write.add(auto);
+					}
+				}
+			}
+			else
+			{
+				write.add(auto);
+			}
+		}
+		return write;
+	}
 	
 	//DETERMINISATION ET COMPLETION
 	
@@ -270,7 +333,7 @@ public class Methode {
 		return Positions;
 	}
 	
-	public static ArrayList<Transition> getMotLu(String EtatFinMotVide,String EtatInitMotVide,ArrayList<Transition> AF) //Pour un etatInitMotVide il va reprendre les transitions de l etatFinMotVide
+	public static ArrayList<Transition> getMotLu(String EtatFinMotVide,String EtatInitMotVide,ArrayList<Transition> AF) throws IOException //Pour un etatInitMotVide il va reprendre les transitions de l etatFinMotVide
 	{
 		ArrayList<Transition> tab = new ArrayList<Transition>();
 		ArrayList<String> EtatsFin = new ArrayList<String>();
@@ -285,36 +348,63 @@ public class Methode {
 			}
 		}
 		// On cherche les transitions a ajouter si on enleve motvide
+		boolean fin = false;
+		ArrayList<String> newEtatFin = new ArrayList<String>();
+		ArrayList<String> Memoire = new ArrayList<String>();
+		newEtatFin.add(EtatFinMotVide);
+		Memoire.add(EtatFinMotVide);
 		ArrayList<Transition> ListAdd = new ArrayList<Transition>();
-		for(Transition InfoEtatFin : AF)
+		while(!fin)
 		{
-			if(InfoEtatFin.getEtatINIT().equals(EtatFinMotVide))
+			for(Transition InfoEtatFin : AF)
 			{
-				ListAdd.add(InfoEtatFin);
-			}
-		}
-		//Pour tous les transitions a ajouter
-		for(int i = 0 ; i <ListAdd.size() ; i++)
-		{
-			if(ListAdd.get(i).getTransition().contains("*"))
-			{
-				//Pour les transitions de letat precedent
-				for(Transition check : AF)
+				if(InfoEtatFin.getEtatINIT().equals(newEtatFin.get(0)))
 				{
-					if(check.getEtatINIT().equals(ListAdd.get(i).getEtatFINAL()))
+					if(!InfoEtatFin.getTransition().contains("*"))
 					{
-						ListAdd.add(check);
+						ListAdd.add(InfoEtatFin);
+					}
+					else
+					{
+						if(!Memoire.contains(InfoEtatFin.getEtatFINAL()))
+						{
+							newEtatFin.add(InfoEtatFin.getEtatFINAL());
+						}
 					}
 				}
-				ListAdd.remove(i);
-				i--;
 			}
-			//Si la nouvelle transition ne reconnait pas le mot vide
+			newEtatFin.remove(0);
+			if(newEtatFin.size()==0)
+			{
+				fin = true;
+			}
+			
+		}
+		
+		for(Transition f : ListAdd)
+		{
+			if(Info.contains("*") )
+			{
+				tab.add(new Transition(f.getEntreeOUsortie(),EtatInitMotVide, f.getTransition() , f.getEtatFINAL()));
+			}
+			else if(Info.equals("ES") || f.getEntreeOUsortie().contains("*") || f.getEntreeOUsortie().equals(Info) )
+			{
+				tab.add(new Transition(Info,EtatInitMotVide, f.getTransition() , f.getEtatFINAL()));
+			}
 			else
 			{
-				tab.add(new Transition(Info , EtatInitMotVide,ListAdd.get(i).getTransition(), ListAdd.get(i).getEtatFINAL()));
-				ListAdd.remove(i);
-				i--;
+				if(f.getEntreeOUsortie().equals("E") && Info.equals("S"))
+				{
+					tab.add(new Transition("ES",EtatInitMotVide, f.getTransition() , f.getEtatFINAL()));
+				}
+				else if(f.getEntreeOUsortie().equals("S") && Info.equals("E"))
+				{
+					tab.add(new Transition("ES",EtatInitMotVide, f.getTransition() , f.getEtatFINAL()));
+				}
+				else
+				{
+					tab.add(new Transition(f.getEntreeOUsortie(),EtatInitMotVide, f.getTransition() , f.getEtatFINAL()));
+				}
 			}
 		}
 		return tab;
@@ -375,6 +465,7 @@ public class Methode {
 			return "";
 		}
 	}
+	
 	
 	public static ArrayList<Transition> toDeterministeAndC (ArrayList<Transition> AFDC, ArrayList<Transition> AF ) throws IOException // Transforme un automate en automate deterministe et complet
 
@@ -475,14 +566,15 @@ public class Methode {
 					}
 					else
 					{
+						 //etatNonE est range
+						String[] etatAvantDet = etatNonE.split(",");
 						for(String transition : ListeTransitions)
 						{
 							boolean firstverif = true;
 							String etatfinal ="";
-							String[] etatAvantDet = etatNonE.split(","); //etatNonE est range
 							for(String etatSplit : etatAvantDet)
 							{
-								for( Transition simple : AF)
+								for( Transition simple : AFDC)
 								{
 									if(simple.getEtatINIT().equals(etatSplit))
 									{
@@ -504,8 +596,7 @@ public class Methode {
 									}
 								}
 							}
-							Transition etatnew = new Transition ( "*" ,etatNonE,transition, RangerEtat(etatfinal));
-							AutoDet.add(etatnew);
+							AutoDet.add(new Transition ( "*" ,etatNonE,transition, RangerEtat(etatfinal)));
 							EtatsInscrits.add(etatNonE);
 							if(!EtatsInscrits.contains(RangerEtat(etatfinal)))
 							{
@@ -521,6 +612,16 @@ public class Methode {
 		//Completion
 		//On ajoute vide par P
 		boolean verifP = false;
+		//On ajoute les etats non appele
+		/*for(Transition p : AFDC)
+		{
+			if(!ListeDiffEtats(ListeEtatsTrInit(AutoDet) , ListeEtatsTrFin(AutoDet)).contains(p.getEtatINIT()))
+			{
+				System.out.println(new Transition(p.getEntreeOUsortie() , p.getEtatINIT() , "a" , "P"));
+				AutoDet.add(new Transition(p.getEntreeOUsortie() , p.getEtatINIT() , "a" , "P"));
+				verifP = true;
+			}
+		}*/
 		for(String etatverif : ListeDiffEtats(ListeEtatsTrInit(AutoDet) , ListeEtatsTrFin(AutoDet)))
 		{
 			//POur chaque mot
@@ -634,9 +735,9 @@ public class Methode {
 	
 	public static ArrayList<Transition> determinisation_et_completion_Automate_asynchrone(ArrayList<Transition> AF) throws IOException
 	{
+		AF = infoEScompleter(AF);
 		ArrayList<Integer> Positions = PositionsMotVide(AF);
-		ArrayList<String> EtatFinauxMotVide = new ArrayList<String>();
-		ArrayList<String> EtatInitMotVide = new ArrayList<String>();
+		ArrayList<Transition> EtatsMotVide = new ArrayList<Transition>();
 		ArrayList<Transition> AFDC = new ArrayList<Transition>();
 		for(Transition tr : AF)
 		{
@@ -644,11 +745,7 @@ public class Methode {
 		}
 		for(int i:Positions)
 		{
-			if(!EtatFinauxMotVide.contains(AF.get(i).getEtatFINAL()))
-			{
-				EtatFinauxMotVide.add(AF.get(i).getEtatFINAL());
-				EtatInitMotVide.add(AF.get(i).getEtatINIT());
-			}
+			EtatsMotVide.add(AF.get(i));
 		}
 		for(int n=0 ; n<AFDC.size();n++)
 		{
@@ -658,9 +755,9 @@ public class Methode {
 				n--;
 			}
 		}
-		for(int k=0;k< EtatFinauxMotVide.size() ;k++)
+		for(int k=0;k< EtatsMotVide.size() ;k++)
 		{
-			for(Transition e : getMotLu(EtatFinauxMotVide.get(k),EtatInitMotVide.get(k),AF))
+			for(Transition e : getMotLu(EtatsMotVide.get(k).getEtatFINAL(),EtatsMotVide.get(k).getEtatINIT(),AF))
 			{
 				AFDC.add(e);
 			}

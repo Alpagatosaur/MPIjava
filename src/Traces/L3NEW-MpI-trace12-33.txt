@@ -1,0 +1,89 @@
+Quel Automate voulez-vous etudier?
+33
+Traitement ...
+
+Determinisation et completion
+Lecture de la ligne 0:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 1:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 2:   Recherche de la transition mot vide ** ---> false
+Lecture de la ligne 3:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 4:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 5:   Recherche de la transition mot vide ** ---> false
+Lecture de la ligne 6:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 7:   Recherche de la transition mot vide ** ---> false
+Lecture de la ligne 8:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 9:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 10:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 11:   Recherche de la transition mot vide ** ---> false
+Lecture de la ligne 12:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 13:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 14:   Recherche de la transition mot vide ** ---> false
+Lecture de la ligne 15:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 16:   Recherche de la transition mot vide ** ---> false
+Lecture de la ligne 17:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 18:   Recherche de la transition mot vide ** ---> false
+------------------------------------------------------------------------------------
+ Resume de la procedure :
+C'est un Automate asynchrone car le/les mot vide * se trouve/ent à :
+   0 --- ** ---> 1
+   1 --- ** ---> 2
+   3 --- ** ---> 5
+   1 --- ** ---> 4
+   4 --- ** ---> 5
+   6 --- ** ---> 12
+   0 --- ** ---> 7
+   7 --- ** ---> 8
+   8 --- ** ---> 11
+   7 --- ** ---> 9
+   10 --- ** ---> 11
+   11 --- ** ---> 12
+
+Minimisation
+Minimisation de AFDC
+ Teta0 : [11,6/11/6, 0/3,8/10,4/8/4/P]
+ Teta1 : [11,6/11, 6, 0/3,8/10,4/8/4, P]
+ Teta2 : [11,6/11, 6, 0, 3,8/8, 10,4, 4, P]
+
+Reconnaissance de mots
+On utilise AFDC
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+bc
+Oui
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+ac
+Oui
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+bbbc
+Oui
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+Stop
+
+Langage complementaire
+On utilise l automate AFDC 
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+ac
+Non
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+Stop
+
+Standardisation
+ Voulez-vous effectuer la standardisation sur le langage complementaire? 0 : Non  // 1 : Oui
+1
+On utilise l automate AComp 
+  Automate standard
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+a
+Oui
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+Stop
+ Voulez-vous effectuer la standardisation sur le langage complementaire? 0 : Non  // 1 : Oui // -1 Sortie
+0
+On utilise l automate AFDC 
+  Automate standard
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+ac
+Oui
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+Stop
+ Voulez-vous effectuer la standardisation sur le langage complementaire? 0 : Non  // 1 : Oui // -1 Sortie
+-1
