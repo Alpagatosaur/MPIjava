@@ -9,7 +9,7 @@ import java.util.Collections;
 
 public class Methode {
 	
-	
+
 	public static ArrayList<Transition> Lire(String Transition) throws IOException
 	{
 		ArrayList<Transition> Tableau= new ArrayList<Transition>();
@@ -671,27 +671,43 @@ public class Methode {
 	}
 	
 	
-	//est_un_automate_déterministe(AF) 
+			//est_un_automate_déterministe(AF) 
 	public static boolean deux_etats_differents_meme_lettre(ArrayList<Transition> AF) {
 	boolean verif = false;
-
-	for (int i = 0; i < AF.size(); i++) {
-	for (int j = i+1; j < AF.size(); j++) {
-	//AF.get(i); 
-	if(AF.get(i).getTransition().contains("a")) {
-	if(AF.get(i).getEtatINIT() == AF.get(j).getEtatINIT() && AF.get(i).getEtatFINAL()== AF.get(j).getEtatFINAL()) {
-
-	verif = true;
-
+	ArrayList<String> EtatsVerif = ListeDiffEtats(ListeEtatsTrInit(AF) , ListeEtatsTrFin(AF));
+	ArrayList<Transition> Liste = new ArrayList<Transition>();
+	
+	for(String mtn : EtatsVerif)
+	{
+		for(Transition Etat : AF)
+		{
+			if(Etat.getEtatINIT().equals(mtn))
+			{
+				Liste.add(Etat);
+			}
+		}
+		if(Liste.size()>1)
+		{
+			for(String lettre : Lettre(AF))
+			{
+				int count = 0;
+				for(int i = 0 ; i < Liste.size() ; i++)
+				{
+					if(Liste.get(i).getTransition().equals(lettre))
+					{
+						count++;
+					}
+				}
+				if(count > 1)
+				{
+					verif = true;
+				}
+				count =0;
+			}
+		}
+		Liste.clear();
 	}
-
-	}
-
-
-	}
-
-	}
-
+	
 	return verif;
 
 	}
@@ -715,7 +731,7 @@ public class Methode {
 	if(result1.size()>1 || result2.size()>1) {
 	System.out.println("l'automate n'est pas déterministe car il n'a pas une seule entrée");
 
-	}else if(deux_etats_differents_meme_lettre(AF)==false) {
+	}else if(deux_etats_differents_meme_lettre(AF)==true) {
 	System.out.println("l'automate n'est pas déterministe car on ne peut pas aller vers deux états différents en lisant une même lettre. ");
 
 
@@ -728,36 +744,47 @@ public class Methode {
 
 	}
 
-	//complétion
+			//complétion
 	public static boolean est_un_automate_complet(ArrayList<Transition> AF) {
 
-	boolean verif = false;
-	if(est_un_Automate_asynchrone(AF)==false && est_un_Automate_deterministe(AF)==true ) {
-	ArrayList<String> Fin = null;
-	ArrayList<String> Initial = null;
-
-	Initial = ListeEtatsTrInit(AF);
-	Fin = ListeEtatsTrFin(AF);
-	if(Initial.size()!= Fin.size()) {
-
-	System.out.println("la table de transition n'est pas maximale");
-
-	}else {
-	verif = true;
+	boolean verif = true;
+	ArrayList<String> lettre = Lettre(AF);
+	ArrayList<String> EtatsVerif = ListeDiffEtats(ListeEtatsTrInit(AF) , ListeEtatsTrFin(AF));
+	
+	for(String etat : EtatsVerif)
+	{
+		ArrayList<Transition> Check = new ArrayList<Transition>();
+		for(Transition etatVerif : AF)
+		{
+			if(etatVerif.getEtatINIT().equals(etat))
+			{
+				Check.add(etatVerif);
+			}
+		}
+		
+		if(Check.size() != lettre.size())
+		{
+			verif= false;
+		}
 	}
-
-
+	if(!verif)
+	{
+		System.out.println("l automate n est pas complet");
+	}
+	else
+	{
+		System.out.println("l automate est complet");
 	}
 	return verif;
 	}
 
-	public static ArrayList<Transition> completion(ArrayList<Transition> AF) throws IOException {
+	public static ArrayList<Transition> completion(ArrayList<Transition> AF) throws IOException 
+	{
 
-	if(est_un_Automate_asynchrone(AF)==false && est_un_Automate_deterministe(AF)==true ) {
-
+	
 	AF = NoDoublonTXT(AF);
 	AF = toDeterministeAndC(AF,AF);
-	}
+	
 	return AF;
 
 	}
@@ -802,11 +829,7 @@ public class Methode {
 
 
 
-
-	
-
 	//Minimisation
-	
 	
 	public static ArrayList<Transition> Minimisation(ArrayList<Transition> AFDC)
 	{
@@ -1186,6 +1209,39 @@ public class Methode {
 	
 	
 	//Standardisation
+	
+	public static boolean checkSTD (ArrayList<Transition> A) throws IOException
+	{
+		ArrayList<String> etatsE = getE(A);
+		
+		for(String EtatES : getES(A))
+		{
+			if(!etatsE.contains(etatsE))
+			{
+				etatsE.add(EtatES);
+			}
+		}
+		//Si il existe plus d'un etat inital donc non std
+		if(etatsE.size()!=1)
+		{
+			return false;
+		}
+		else
+		{
+			for(String etatE : etatsE)
+			{
+				for(Transition etat : A)
+				{
+					//Sil y a une transition vers l etat initial donc non std ( ex boucle ou 1->etat inital)
+					if(etat.getEtatFINAL().equals(etatE))
+					{
+						return false;
+					}
+				}
+			}
+			return true;
+		}
+	}
 	
 	public static ArrayList<Transition> automate_standard(ArrayList<Transition> A) throws IOException
 	{

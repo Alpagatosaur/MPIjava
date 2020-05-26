@@ -48,10 +48,10 @@ public class Main {
 					System.out.println("  ");
 					if(Methode.est_un_Automate_deterministe(AF))
 					{
-						System.out.println("  ");
+						System.out.println(" automate deterministe");
 						if(Methode.est_un_automate_complet(AF))
 						{
-							AFDC = AF;
+							AFDC = Methode.determinisation_et_completion_automate_synchrone(AF);
 						}
 						else
 						{
@@ -128,42 +128,92 @@ public class Main {
 				//Standardisation
 				System.out.println("");
 				System.out.println("Standardisation");
-				System.out.println("On utilise l automate AFDC ");
-				ArrayList<Transition> ACompStd = new ArrayList<Transition>();
-				boolean std = false;
-				for(Transition xyz : A)
+				System.out.println(" Voulez-vous effectuer la standardisation sur le langage complementaire? 0 : Non  // 1 : Oui");
+				Scanner stdscan = new Scanner(System.in);
+				int std = stdscan.nextInt();
+				
+				while(std != -1)
 				{
-					if(xyz.getEtatINIT().equals("i"))
+					if(std==0)
 					{
-						std = true;
+						System.out.println("On utilise l automate AFDC ");
+						ArrayList<Transition> AStd = new ArrayList<Transition>();
+						boolean stdverif = Methode.checkSTD(A);
+						
+						if(!stdverif)
+						{
+							AStd = Methode.automate_standard(A);
+							System.out.println("  Automate non standard");
+							System.out.println("  Modification en cours ...");
+						}
+						else
+						{
+							AStd = A;
+							System.out.println("  Automate standard");
+						}
+						STOP =false;
+						while(!STOP)
+						{
+							System.out.println(" Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)");
+							Scanner w = new Scanner(System.in);
+							String Word= w.next();
+							if(Word.equals("Stop"))
+							{
+								STOP = true;
+							}
+							else
+							{
+								System.out.println(Methode.Lire_mot(Word , AStd));
+							}
+						}
+						System.out.println(" Voulez-vous effectuer la standardisation sur le langage complementaire? 0 : Non  // 1 : Oui // -1 Sortie");
+						Scanner scan = new Scanner(System.in);
+						std = scan.nextInt();
 					}
-				}
-				if(!std)
-				{
-					ACompStd = Methode.automate_standard(A);
-					System.out.println("  Automate non standard");
-					System.out.println("  Modification en cours ...");
-				}
-				else
-				{
-					ACompStd = A;
-					System.out.println("  Automate standard");
-				}
-				STOP =false;
-				while(!STOP)
-				{
-					System.out.println(" Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)");
-					Scanner w = new Scanner(System.in);
-					String Word= w.next();
-					if(Word.equals("Stop"))
+					else if(std == 1)
 					{
-						STOP = true;
+						System.out.println( "On utilise l automate AComp ");
+						ArrayList<Transition> ACompStd = new ArrayList<Transition>();
+						boolean stdverif = Methode.checkSTD(AComp);
+						
+						if(!stdverif)
+						{
+							ACompStd = Methode.automate_standard(AComp);
+							System.out.println("  Automate non standard");
+							System.out.println("  Modification en cours ...");
+						}
+						else
+						{
+							ACompStd = AComp;
+							System.out.println("  Automate standard");
+						}
+						STOP =false;
+						while(!STOP)
+						{
+							System.out.println(" Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)");
+							Scanner w = new Scanner(System.in);
+							String Word= w.next();
+							if(Word.equals("Stop"))
+							{
+								STOP = true;
+							}
+							else
+							{
+								System.out.println(Methode.Lire_mot(Word , ACompStd));
+							}
+						}
+						System.out.println(" Voulez-vous effectuer la standardisation sur le langage complementaire? 0 : Non  // 1 : Oui // -1 Sortie");
+						Scanner scan = new Scanner(System.in);
+						std = scan.nextInt();
 					}
 					else
 					{
-						System.out.println(Methode.Lire_mot(Word , ACompStd));
+						System.out.println(" Nombre non reconnu : Fin d analyse ");
+						std = -1;
+						
 					}
 				}
+				
 				System.out.println("-------------------------------------------------------------------------------------------");
 				System.out.println("");
 				System.out.println("Quel Automate voulez-vous etudier?");
