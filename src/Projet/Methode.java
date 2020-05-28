@@ -329,7 +329,6 @@ public class Methode {
 				}
 				else
 				{
-					boolean vide = true;
 					String inf = auto.getEntreeOUsortie();
 					for(Transition t : A)
 					{
@@ -400,9 +399,7 @@ public class Methode {
 	public static ArrayList<Transition> getMotLu(String EtatFinMotVide,String EtatInitMotVide,ArrayList<Transition> AF) throws IOException //Pour un etatInitMotVide il va reprendre les transitions de l etatFinMotVide
 	{
 		ArrayList<Transition> tab = new ArrayList<Transition>();
-		ArrayList<String> EtatsFin = new ArrayList<String>();
 		String Info ="*";
-		boolean Fin = true;
 		//Savoir si cest un E , S , *
 		for(Transition e: AF)
 		{
@@ -1285,7 +1282,6 @@ public class Methode {
 		}
 		for( int motlu = 0 ; motlu< caracteres.length ; motlu++)
 		{
-			String precedent = Mtn;
 			boolean etatS = false;
 			ArrayList<Transition> LecturePossible = new ArrayList<Transition>();
 			//On va parcourir
@@ -1375,7 +1371,7 @@ public class Methode {
 		
 		for(String EtatES : getES(A))
 		{
-			if(!etatsE.contains(etatsE))
+			if(!etatsE.contains(EtatES))
 			{
 				etatsE.add(EtatES);
 			}
