@@ -1,0 +1,128 @@
+Quel Automate voulez-vous etudier?
+32
+Traitement ...
+
+Determinisation et completion
+Lecture de la ligne 0:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 1:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 2:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 3:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 4:   Recherche de la transition mot vide ** ---> false
+Lecture de la ligne 5:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 6:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 7:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 8:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 9:   Recherche de la transition mot vide ** ---> false
+Lecture de la ligne 10:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 11:   Recherche de la transition mot vide ** ---> false
+Lecture de la ligne 12:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 13:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 14:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 15:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 16:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 17:   Recherche de la transition mot vide ** ---> false
+Lecture de la ligne 18:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 19:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 20:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 21:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 22:   Recherche de la transition mot vide ** ---> false
+Lecture de la ligne 23:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 24:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 25:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 26:   Recherche de la transition mot vide ** ---> false
+Lecture de la ligne 27:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 28:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 29:   Recherche de la transition mot vide ** ---> true
+Lecture de la ligne 30:   Recherche de la transition mot vide ** ---> false
+------------------------------------------------------------------------------------
+ Resume de la procedure :
+C'est un Automate asynchrone car le/les mot vide * se trouve/ent à :
+   0 --- ** ---> 1
+   1 --- ** ---> 2
+   2 --- ** ---> 3
+   2 --- ** ---> 5
+   4 --- ** ---> 3
+   4 --- ** ---> 5
+   5 --- ** ---> 8
+   1 --- ** ---> 6
+   7 --- ** ---> 8
+   9 --- ** ---> 21
+   0 --- ** ---> 10
+   10 --- ** ---> 11
+   11 --- ** ---> 12
+   11 --- ** ---> 14
+   13 --- ** ---> 12
+   13 --- ** ---> 14
+   14 --- ** ---> 17
+   10 --- ** ---> 15
+   16 --- ** ---> 17
+   17 --- ** ---> 18
+   17 --- ** ---> 20
+   19 --- ** ---> 18
+   19 --- ** ---> 20
+   20 --- ** ---> 21
+
+Minimisation
+Minimisation de AFDC
+ Teta0 : [16,4/13,7/19,9/13/19/9, 0/4/P]
+ Teta1 : [16,4/19,9/19, 13,7/13, 9, 0, 4, P]
+ Teta2 : [16,4, 19,9/19, 13,7/13, 9, 0, 4, P]
+
+Reconnaissance de mots
+On utilise AFDC
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+bbc
+Oui
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+bccc
+Oui
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+aac
+Oui
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+accc
+Oui
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+aacc
+Oui
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+bbccc
+Non
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+Stop
+
+Langage complementaire
+On utilise l automate AFDC 
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+bbcc
+Oui
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+ac
+Non
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+Stop
+
+Standardisation
+ Voulez-vous effectuer la standardisation sur le langage complementaire? 0 : Non  // 1 : Oui
+1
+On utilise l automate AComp 
+  Automate standard
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+ac
+Non
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+aacc
+Non
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+Stop
+ Voulez-vous effectuer la standardisation sur le langage complementaire? 0 : Non  // 1 : Oui // -1 Sortie
+0
+On utilise l automate AFDC 
+  Automate standard
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+ac
+Oui
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+Stop
+ Voulez-vous effectuer la standardisation sur le langage complementaire? 0 : Non  // 1 : Oui // -1 Sortie
+-1

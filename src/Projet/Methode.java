@@ -231,67 +231,131 @@ public class Methode {
 
 	public static ArrayList<Transition> infoEScompleter (ArrayList<Transition> A) throws IOException
 	{
-		ArrayList<Transition> write = new ArrayList<Transition>();
-		for(Transition auto : A)
+		
+		boolean idem = false;
+		while(!idem)
 		{
-			if(auto.getEntreeOUsortie().contains("*") && !auto.getTransition().contains("*"))
+			ArrayList<Transition> write = new ArrayList<Transition>();
+			for(Transition auto : A)
 			{
-				if(getE(A).contains(auto.getEtatINIT()))
+				//Les transitions sans info et ne lisent pas de mot vide
+				if(auto.getEntreeOUsortie().contains("*") && !auto.getTransition().contains("*"))
 				{
-					write.add(new Transition("E" , auto.getEtatINIT(), auto.getTransition() , auto.getEtatFINAL()));
-				}
-				else if(getS(A).contains(auto.getEtatINIT()))
-				{
-					write.add(new Transition("S" , auto.getEtatINIT(), auto.getTransition() , auto.getEtatFINAL()));
-				}
-				else if(getES(A).contains(auto.getEtatINIT()))
-				{
-					write.add(new Transition("ES" , auto.getEtatINIT(), auto.getTransition() , auto.getEtatFINAL()));
-				}
-				else
-				{
-					write.add(auto);
-				}
-			}
-			else if(auto.getTransition().contains("*"))
-			{
-				if(auto.getEntreeOUsortie().contains("*"))
-				{
-					if(getE(A).contains(auto.getEtatFINAL()))
+					if(getE(A).contains(auto.getEtatINIT()))
 					{
 						write.add(new Transition("E" , auto.getEtatINIT(), auto.getTransition() , auto.getEtatFINAL()));
 					}
-					else if(getS(A).contains(auto.getEtatFINAL()))
+					else if(getS(A).contains(auto.getEtatINIT()))
 					{
 						write.add(new Transition("S" , auto.getEtatINIT(), auto.getTransition() , auto.getEtatFINAL()));
 					}
-					else if(getES(A).contains(auto.getEtatFINAL()))
+					else if(getES(A).contains(auto.getEtatINIT()))
 					{
 						write.add(new Transition("ES" , auto.getEtatINIT(), auto.getTransition() , auto.getEtatFINAL()));
 					}
 					else
 					{
 						write.add(auto);
+					}
+				}
+				//Les transitions mot vide
+				else if(auto.getTransition().contains("*"))
+				{
+					if(auto.getEntreeOUsortie().contains("*"))
+					{
+						if(getE(A).contains(auto.getEtatFINAL()))
+						{
+							write.add(new Transition("E" , auto.getEtatINIT(), auto.getTransition() , auto.getEtatFINAL()));
+						}
+						else if(getS(A).contains(auto.getEtatFINAL()))
+						{
+							write.add(new Transition("S" , auto.getEtatINIT(), auto.getTransition() , auto.getEtatFINAL()));
+						}
+						else if(getES(A).contains(auto.getEtatFINAL()))
+						{
+							write.add(new Transition("ES" , auto.getEtatINIT(), auto.getTransition() , auto.getEtatFINAL()));
+						}
+						else
+						{
+							boolean verif = false;
+							boolean boucle = false;
+							String checkInf = auto.getEtatFINAL();
+							ArrayList<Transition> t = new ArrayList<Transition>();
+							while(!verif)
+							{
+								
+								for(Transition v : A)
+								{
+									if(v.getEtatINIT().equals(checkInf))
+									{
+										if(!v.getEntreeOUsortie().contains("*") && !v.getTransition().contains("*"))
+										{
+											t.add(v);
+											verif = true;
+										}
+										else
+										{
+											checkInf = v.getEtatFINAL();
+										}
+									}
+								}
+								if(boucle)
+								{
+									verif = true;
+								}
+								boucle = true;
+							}
+							if(t.size()!=0)
+							{
+								write.add(new Transition(t.get(0).getEntreeOUsortie(), auto.getEtatINIT(), auto.getTransition() , auto.getEtatFINAL()));
+							}
+							else
+							{
+								write.add(auto);
+							}
+						}
+					}
+					else
+					{
+						if(getES(A).contains(auto.getEtatFINAL()))
+						{
+							write.add(new Transition("ES" , auto.getEtatINIT(), auto.getTransition() , auto.getEtatFINAL()));
+						}
+						else
+						{
+							write.add(auto);
+						}
 					}
 				}
 				else
 				{
-					if(getES(A).contains(auto.getEtatFINAL()))
+					boolean vide = true;
+					String inf = auto.getEntreeOUsortie();
+					for(Transition t : A)
 					{
-						write.add(new Transition("ES" , auto.getEtatINIT(), auto.getTransition() , auto.getEtatFINAL()));
+						if(t.getEtatINIT().equals(auto.getEtatFINAL()) && !t.getTransition().contains("*") && !t.getEntreeOUsortie().contains("*"))
+						{
+							if(!t.getEntreeOUsortie().equals(inf))
+							{
+								inf = inf+t.getEntreeOUsortie();
+							}
+						}
 					}
-					else
-					{
-						write.add(auto);
-					}
+					write.add( new Transition(inf , auto.getEtatINIT(), auto.getTransition() , auto.getEtatFINAL()));
 				}
+			}
+			if(A.equals(write))
+			{
+				idem = true;
 			}
 			else
 			{
-				write.add(auto);
+				A = write;
 			}
 		}
-		return write;
+		
+		
+		return A;
 	}
 	
 	//DETERMINISATION ET COMPLETION
@@ -572,6 +636,7 @@ public class Methode {
 						{
 							boolean firstverif = true;
 							String etatfinal ="";
+							ArrayList<String> Memory = new ArrayList<String>();
 							for(String etatSplit : etatAvantDet)
 							{
 								for( Transition simple : AFDC)
@@ -580,16 +645,18 @@ public class Methode {
 									{
 										if(simple.getTransition().equals(transition))
 										{
-											if(!etatfinal.contains(simple.getEtatFINAL()))
+											if(!Memory.contains(simple.getEtatFINAL()))
 											{
 												if(firstverif)
 												{
 													etatfinal =simple.getEtatFINAL();
+													Memory.add(simple.getEtatFINAL());
 													firstverif = false;
 												}
 												else
 												{
 													etatfinal =etatfinal +"," + simple.getEtatFINAL();
+													Memory.add(simple.getEtatFINAL());
 												}
 											}
 										}
@@ -608,7 +675,6 @@ public class Methode {
 			}
 		EtatFutur.remove(0);
 		}
-		
 		//Completion
 		//On ajoute vide par P
 		boolean verifP = false;
@@ -773,7 +839,7 @@ public class Methode {
 	boolean verif = false;
 	ArrayList<String> EtatsVerif = ListeDiffEtats(ListeEtatsTrInit(AF) , ListeEtatsTrFin(AF));
 	ArrayList<Transition> Liste = new ArrayList<Transition>();
-	
+	//Pour tous les etats de l automate
 	for(String mtn : EtatsVerif)
 	{
 		for(Transition Etat : AF)
@@ -783,6 +849,7 @@ public class Methode {
 				Liste.add(Etat);
 			}
 		}
+		//Liste est une liste dun etat avec ses transition
 		if(Liste.size()>1)
 		{
 			for(String lettre : Lettre(AF))
@@ -809,7 +876,7 @@ public class Methode {
 
 	}
 
-	public static  boolean est_un_Automate_deterministe(ArrayList<Transition> AF) {
+	public static  boolean est_un_Automate_deterministe(ArrayList<Transition> AF) throws IOException {
 
 	boolean verif = false;
 	if(est_un_Automate_asynchrone(AF)==false ) {
@@ -817,14 +884,9 @@ public class Methode {
 	ArrayList<String> result2 = null;
 
 
-	try {
 	result1 = getE(AF);
 	result2 = getES(AF);
-
-	} catch (IOException e) {
-	// TODO Auto-generated catch block
-	e.printStackTrace();
-	}
+	
 	if(result1.size()>1 || result2.size()>1) {
 	System.out.println("l'automate n'est pas déterministe car il n'a pas une seule entrée");
 
