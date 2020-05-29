@@ -72,7 +72,7 @@ public class Main {
 				System.out.println();
 				System.out.println("Minimisation");
 				ArrayList<Transition> AFDCM = Methode.Minimisation(AFDC);
-				Fenetre fenr = new Fenetre(AFDCM , "Tableau AFDCM");
+				Fenetre fenr = new Fenetre(AFDCM , "Tableau AFDCM automate " +nb);
 				fenr.setVisible(true);
 				
 				

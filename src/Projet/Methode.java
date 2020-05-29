@@ -220,7 +220,7 @@ public class Methode {
 					}
 					else
 					{
-						LigneTemporaire= LigneTemporaire + "  ,  " + Tableau.get(j).getEtatFINAL();
+						LigneTemporaire= LigneTemporaire + "," + Tableau.get(j).getEtatFINAL();
 					}
 				}
 			}
@@ -1129,6 +1129,7 @@ public class Methode {
 									}
 								}
 							}
+							
 						}
 						//ex Si cest la 1ere fois que T:NT a ete lu
 						if(!DifferentGrpReconnu.contains(GrpReconnu))
