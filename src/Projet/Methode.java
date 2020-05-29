@@ -784,7 +784,7 @@ public class Methode {
 		System.out.println(" Resume de la procedure :");
 		if(verif)
 		{
-			System.out.println("C'est un Automate asynchrone car le/les mot vide * se trouve/ent à :");
+			System.out.println("C'est un Automate asynchrone car le/les mot vide ** se trouve/ent à :");
 			for(int p : Positions)
 			{
 				System.out.println( "   "+AF.get(p).getEtatINIT() + " --- " + AF.get(p).getTransition() + " ---> " + AF.get(p).getEtatFINAL());
