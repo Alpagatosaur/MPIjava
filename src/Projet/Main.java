@@ -25,7 +25,7 @@ public class Main {
 				ArrayList<Transition> AF = Methode.Lire(fichier);
 				
 				// Afficher
-				Fenetre fen = new Fenetre(AF ,"Tableau AF automate "+nb);
+				Fenetre fen = new Fenetre(AF ,"Tableau AF automate "+ nb);
 				fen.setVisible(true);
 				
 				//Determinisation et Completion
@@ -37,7 +37,7 @@ public class Main {
 				{
 					Methode.afficher_raisons_asynchrone(AF);
 					AFDC = Methode.determinisation_et_completion_Automate_asynchrone(AF);
-					Fenetre fent = new Fenetre(AFDC , "Tableau AFDC automate"+nb);
+					Fenetre fent = new Fenetre(AFDC , "Tableau AFDC automate "+nb);
 					fent.setVisible(true);
 				}
 				else
@@ -64,7 +64,7 @@ public class Main {
 						System.out.println("  ");
 						AFDC = Methode.determinisation_et_completion_automate_synchrone(AF);
 					}
-					Fenetre fent = new Fenetre(AFDC , "Tableau AFDC automate"+nb);
+					Fenetre fent = new Fenetre(AFDC , "Tableau AFDC automate "+nb);
 					fent.setVisible(true);
 				}
 				
