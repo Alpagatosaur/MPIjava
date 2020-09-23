@@ -877,14 +877,19 @@ public class Methode {
 
 	boolean verif = false;
 	if(est_un_Automate_asynchrone(AF)==false ) {
-	ArrayList<String> result1 = null;
-	ArrayList<String> result2 = null;
+	ArrayList<String> result = new ArrayList<String>();
 
 
-	result1 = getE(AF);
-	result2 = getES(AF);
+	result = getE(AF);
+	for(String r : getES(AF))
+	{
+		if(!result.contains(r))
+		{
+			result.add(r);
+		}
+	}
 	
-	if(result1.size()>1 || result2.size()>1) {
+	if(result.size()>1 ) {
 	System.out.println("l'automate n'est pas déterministe car il n'a pas une seule entrée");
 
 	}else if(deux_etats_differents_meme_lettre(AF)==true) {

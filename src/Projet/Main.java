@@ -108,6 +108,7 @@ public class Main {
 				
 				
 				ArrayList<Transition> AComp = Methode.automate_complementaire(A);
+				
 				STOP = false;
 				while(!STOP)
 				{
@@ -130,15 +131,20 @@ public class Main {
 				System.out.println("Standardisation");
 				System.out.println(" Voulez-vous effectuer la standardisation sur le langage complementaire? 0 : Non  // 1 : Oui");
 				Scanner stdscan = new Scanner(System.in);
+				ArrayList<Transition> AStd = new ArrayList<Transition>();
 				int std = stdscan.nextInt();
+				AStd = Methode.automate_standard(A);
+				Fenetre fe = new Fenetre(AStd , "Tableau AStd automate " +nb);
+				fe.setVisible(true);
 				
 				while(std != -1)
 				{
 					if(std==0)
 					{
 						System.out.println("On utilise l automate AFDC ");
-						ArrayList<Transition> AStd = new ArrayList<Transition>();
 						boolean stdverif = Methode.checkSTD(A);
+						AStd = Methode.automate_standard(A);
+						
 						
 						if(!stdverif)
 						{
