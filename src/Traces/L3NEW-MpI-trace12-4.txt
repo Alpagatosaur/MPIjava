@@ -1,0 +1,69 @@
+Quel Automate voulez-vous etudier?
+4
+Traitement ...
+
+Determinisation et completion
+Lecture de la ligne 0:   Recherche de la transition mot vide ** ---> false
+------------------------------------------------------------------------------------
+ Resume de la procedure :
+Ce n'est pas un Automate asynchrone car l Automate ne contient pas de transitions * 
+  
+Automate synchrone 
+  
+ automate deterministe
+l automate n est pas complet
+  
+
+Minimisation
+Minimisation de AFDC
+ Teta0 : [, 0/1/P]
+
+Reconnaissance de mots
+On utilise AFDC
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+aa
+Non
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+a
+Non
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+Stop
+
+Langage complementaire
+On utilise l automate AFDC 
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+a
+Oui
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+aa
+Oui
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+Stop
+
+Standardisation
+ Voulez-vous effectuer la standardisation sur le langage complementaire? 0 : Non  // 1 : Oui
+1
+On utilise l automate AComp 
+  Automate standard
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+a
+Oui
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+aa
+Oui
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+Stop
+ Voulez-vous effectuer la standardisation sur le langage complementaire? 0 : Non  // 1 : Oui // -1 Sortie
+0
+On utilise l automate AFDC 
+  Automate standard
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+a
+Non
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+aa
+Non
+ Quel mot voulez-vous analyser? (Tapez Stop pour arreter la lecture)
+Stop
+ Voulez-vous effectuer la standardisation sur le langage complementaire? 0 : Non  // 1 : Oui // -1 Sortie
+-1
