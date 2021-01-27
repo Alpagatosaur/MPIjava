@@ -1,4 +1,4 @@
-# Projet : MMathématiques pour l’Informatique
+# Projet : Mathématiques pour l’Informatique
  
 Traitement d’automate fini
 Reconnaissance de mots
